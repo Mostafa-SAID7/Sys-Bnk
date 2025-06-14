@@ -1,0 +1,14 @@
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\bin\Debug\net9.0\SimpleATMSimulation.exe
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\bin\Debug\net9.0\SimpleATMSimulation.deps.json
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\bin\Debug\net9.0\SimpleATMSimulation.runtimeconfig.json
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\bin\Debug\net9.0\SimpleATMSimulation.dll
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\bin\Debug\net9.0\SimpleATMSimulation.pdb
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\SimpleATMSimulation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\SimpleATMSimulation.AssemblyInfoInputs.cache
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\SimpleATMSimulation.AssemblyInfo.cs
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\SimpleATMSimulation.csproj.CoreCompileInputs.cache
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\SimpleATMSimulation.dll
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\refint\SimpleATMSimulation.dll
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\SimpleATMSimulation.pdb
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\SimpleATMSimulation.genruntimeconfig.cache
+C:\Users\Mostafa\Desktop\prjs\C# prjs\SimpleATMSimulation\SimpleATMSimulation\obj\Debug\net9.0\ref\SimpleATMSimulation.dll

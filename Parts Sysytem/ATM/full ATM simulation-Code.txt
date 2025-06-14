@@ -1,0 +1,266 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using ATMApp.Models;
+
+namespace ATMApp.Services
+{
+    public class ATMSystem
+    {
+        private List<BankAccount> accounts = new();
+        private const string DataFile = "accounts.json";
+
+        public void Run()
+        {
+            LoadAccounts();
+
+            while (true)
+            {
+                Console.WriteLine("\n🏦 ATM Main Menu");
+                Console.WriteLine("1. Register");
+                Console.WriteLine("2. Login");
+                Console.WriteLine("3. Reset PIN");
+                Console.WriteLine("4. Admin Login");
+                Console.WriteLine("0. Exit");
+                Console.Write("👉 Choose option: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1": Register(); break;
+                    case "2": Login(); break;
+                    case "3": ResetPin(); break;
+                    case "4": AdminLogin(); break;
+                    case "0": SaveAccounts(); return;
+                    default: Console.WriteLine("❌ Invalid option."); break;
+                }
+            }
+        }
+
+        private void Register()
+        {
+            Console.Write("👤 Enter your name: ");
+            string name = Console.ReadLine();
+            Console.Write("🔢 Choose account number: ");
+            string acc = Console.ReadLine();
+            Console.Write("🔐 Set PIN: ");
+            string pin = ReadMaskedInput();
+            Console.Write("❓ Security Answer (fav color): ");
+            string answer = Console.ReadLine();
+
+            if (accounts.Exists(a => a.AccountNumber == acc))
+            {
+                Console.WriteLine("❌ Account already exists.");
+                return;
+            }
+
+            accounts.Add(new BankAccount(acc, name, pin, answer));
+            Console.WriteLine("✅ Registration complete.");
+            SaveAccounts();
+        }
+
+        private void Login()
+        {
+            Console.Write("🔢 Enter account number: ");
+            string acc = Console.ReadLine();
+            var account = accounts.Find(a => a.AccountNumber == acc);
+
+            if (account == null)
+            {
+                Console.WriteLine("❌ Account not found.");
+                return;
+            }
+
+            if (!account.VerifyPin()) return;
+
+            while (true)
+            {
+                Console.WriteLine("\n💼 Account Menu");
+                Console.WriteLine("1. Show Balance");
+                Console.WriteLine("2. Deposit");
+                Console.WriteLine("3. Withdraw");
+                Console.WriteLine("4. Transfer");
+                Console.WriteLine("0. Logout");
+                Console.Write("👉 Choose option: ");
+                string opt = Console.ReadLine();
+
+                switch (opt)
+                {
+                    case "1": account.ShowBalance(); break;
+                    case "2": account.Deposit(); SaveAccounts(); break;
+                    case "3": account.Withdraw(); SaveAccounts(); break;
+                    case "4":
+                        Console.Write("🔢 Recipient Account #: ");
+                        string to = Console.ReadLine();
+                        var receiver = accounts.Find(a => a.AccountNumber == to);
+                        if (receiver == null || receiver == account)
+                            Console.WriteLine("❌ Invalid recipient.");
+                        else
+                            account.Transfer(receiver);
+                        SaveAccounts();
+                        break;
+                    case "0": return;
+                    default: Console.WriteLine("❌ Invalid option."); break;
+                }
+            }
+        }
+
+        private void ResetPin()
+        {
+            Console.Write("🔢 Enter account number: ");
+            string acc = Console.ReadLine();
+            var account = accounts.Find(a => a.AccountNumber == acc);
+
+            if (account == null)
+            {
+                Console.WriteLine("❌ Account not found.");
+                return;
+            }
+            account.ResetPin();
+            SaveAccounts();
+        }
+
+        private void AdminLogin()
+        {
+            Console.Write("👤 Admin username: ");
+            string user = Console.ReadLine();
+            Console.Write("🔐 Admin password: ");
+            string pass = ReadMaskedInput();
+
+            if (user != "admin" || pass != "admin123")
+            {
+                Console.WriteLine("❌ Invalid admin credentials.");
+                return;
+            }
+
+            while (true)
+            {
+                Console.WriteLine("\n📋 Admin Menu:");
+                Console.WriteLine("1. View All Accounts");
+                Console.WriteLine("2. Search by Name");
+                Console.WriteLine("3. Filter by Balance");
+                Console.WriteLine("4. Filter by Last Transaction Date");
+                Console.WriteLine("5. Filter Inactive Accounts (No Activity for X Days)");
+                Console.WriteLine("6. View Accounts Sorted by Last Activity");
+                Console.WriteLine("0. Logout");
+                Console.Write("👉 Choose option: ");
+                string opt = Console.ReadLine();
+
+                switch (opt)
+                {
+                    case "1":
+                        foreach (var acc in accounts)
+                        {
+                            Console.WriteLine("===================================");
+                            acc.ShowSummary();
+                        }
+                        break;
+                    case "2": SearchByName(); break;
+                    case "3": FilterByBalance(); break;
+                    case "4": FilterByTransactionDate(); break;
+                    case "5": FilterInactive(); break;
+                    case "6": SortByActivity(); break;
+                    case "0": return;
+                    default: Console.WriteLine("❌ Invalid option."); break;
+                }
+            }
+        }
+
+        private void SearchByName()
+        {
+            Console.Write("🔎 Name contains: ");
+            string name = Console.ReadLine().ToLower();
+            var results = accounts.FindAll(a => a.OwnerName.ToLower().Contains(name));
+            if (results.Count == 0) Console.WriteLine("❌ No matches.");
+            else foreach (var a in results) { a.ShowSummary(); Console.WriteLine("==================================="); }
+        }
+
+        private void FilterByBalance()
+        {
+            Console.WriteLine("1. ="); Console.WriteLine("2. >"); Console.WriteLine("3. <");
+            Console.Write("Option: "); string op = Console.ReadLine();
+            Console.Write("Amount: ");
+            if (!double.TryParse(Console.ReadLine(), out double val)) return;
+
+            List<BankAccount> res = op switch
+            {
+                "1" => accounts.FindAll(a => a.Balance == val),
+                "2" => accounts.FindAll(a => a.Balance > val),
+                "3" => accounts.FindAll(a => a.Balance < val),
+                _ => new List<BankAccount>()
+            };
+            foreach (var a in res) { a.ShowSummary(); Console.WriteLine("==================================="); }
+        }
+
+        private void FilterByTransactionDate()
+        {
+            Console.WriteLine("1. On"); Console.WriteLine("2. After"); Console.WriteLine("3. Before");
+            Console.Write("Option: "); string op = Console.ReadLine();
+            Console.Write("Date (yyyy-MM-dd): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt)) return;
+
+            List<BankAccount> res = op switch
+            {
+                "1" => accounts.FindAll(a => a.LastTransactionDate?.Date == dt.Date),
+                "2" => accounts.FindAll(a => a.LastTransactionDate > dt),
+                "3" => accounts.FindAll(a => a.LastTransactionDate < dt),
+                _ => new List<BankAccount>()
+            };
+            foreach (var a in res) { a.ShowSummary(); Console.WriteLine("==================================="); }
+        }
+
+        private void FilterInactive()
+        {
+            Console.Write("Days of inactivity: ");
+            if (!int.TryParse(Console.ReadLine(), out int days)) return;
+            DateTime cut = DateTime.Now.AddDays(-days);
+            var res = accounts.FindAll(a => a.LastTransactionDate == null || a.LastTransactionDate < cut);
+            foreach (var a in res) { a.ShowSummary(); Console.WriteLine("==================================="); }
+        }
+
+        private void SortByActivity()
+        {
+            var sorted = new List<BankAccount>(accounts);
+            sorted.Sort((a, b) => (b.LastTransactionDate ?? DateTime.MinValue).CompareTo(a.LastTransactionDate ?? DateTime.MinValue));
+            foreach (var a in sorted) { a.ShowSummary(); Console.WriteLine("==================================="); }
+        }
+
+        private void LoadAccounts()
+        {
+            if (File.Exists(DataFile))
+            {
+                var json = File.ReadAllText(DataFile);
+                accounts = JsonSerializer.Deserialize<List<BankAccount>>(json) ?? new();
+            }
+        }
+
+        private void SaveAccounts()
+        {
+            var json = JsonSerializer.Serialize(accounts, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(DataFile, json);
+        }
+
+        private string ReadMaskedInput()
+        {
+            string input = "";
+            ConsoleKeyInfo key;
+            do
+            {
+                key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Backspace && input.Length > 0)
+                {
+                    input = input[..^1];
+                    Console.Write("\b \b");
+                }
+                else if (!char.IsControl(key.KeyChar))
+                {
+                    input += key.KeyChar;
+                    Console.Write("*");
+                }
+            } while (key.Key != ConsoleKey.Enter);
+            Console.WriteLine();
+            return input;
+        }
+    }
+}
