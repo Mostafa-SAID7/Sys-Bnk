@@ -1,0 +1,22 @@
+{
+  "admin": {
+    "CardNumber": "admin",
+    "Pin": "admin123" 
+  },"user": {
+    "CardNumber": "memo123",
+    "Pin": "1234",
+    "Balance": 1000,
+    "TransactionHistory": []
+  },"1234": {
+    "CardNumber": "1234",
+    "Pin": "1111",
+    "Balance": 500.0,
+    "TransactionHistory": []
+  },
+  "5678": {
+    "CardNumber": "5678",
+    "Pin": "2222",
+    "Balance": 1000.0,
+    "TransactionHistory": []
+  }
+}

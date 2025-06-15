@@ -1,0 +1,14 @@
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\FullATMsimulation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\FullATMsimulation.AssemblyInfoInputs.cache
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\FullATMsimulation.AssemblyInfo.cs
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\FullATMsimulation.csproj.CoreCompileInputs.cache
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\bin\Debug\net9.0\FullATMsimulation.exe
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\bin\Debug\net9.0\FullATMsimulation.deps.json
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\bin\Debug\net9.0\FullATMsimulation.runtimeconfig.json
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\bin\Debug\net9.0\FullATMsimulation.dll
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\bin\Debug\net9.0\FullATMsimulation.pdb
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\FullATMsimulation.dll
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\refint\FullATMsimulation.dll
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\FullATMsimulation.pdb
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\FullATMsimulation.genruntimeconfig.cache
+C:\Users\Mostafa\Desktop\prjs\C# prjs\FullATMsimulation\FullATMsimulation\obj\Debug\net9.0\ref\FullATMsimulation.dll

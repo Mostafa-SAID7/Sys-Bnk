@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "FullATMsimulation/1.0.0": {
+        "runtime": {
+          "FullATMsimulation.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FullATMsimulation/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
